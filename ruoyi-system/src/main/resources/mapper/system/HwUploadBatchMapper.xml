@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.HwUploadBatchMapper">
+    
+    <resultMap type="HwUploadBatch" id="HwUploadBatchResult">
+        <result property="id"    column="id"    />
+        <result property="studentId"    column="student_id"    />
+        <result property="studentName"    column="student_name"    />
+        <result property="courseId"    column="course_id"    />
+        <result property="batchNo"    column="batch_no"    />
+        <result property="fileCount"    column="file_count"    />
+        <result property="submitTime"    column="submit_time"    />
+        <result property="aiStatus"    column="ai_status"    />
+        <result property="aiReview"    column="ai_review"    />
+        <result property="totalScore"    column="total_score"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="tcReview"    column="tc_review"    />
+    </resultMap>
+
+    <sql id="selectHwUploadBatchVo">
+        select id, student_id, student_name, course_id, batch_no, file_count, submit_time, ai_status, ai_review, tc_review,total_score, create_time, update_time from hw_upload_batch
+    </sql>
+
+    <select id="selectHwUploadBatchList" parameterType="HwUploadBatch" resultMap="HwUploadBatchResult">
+        <include refid="selectHwUploadBatchVo"/>
+        <where>  
+            <if test="studentId != null "> and student_id = #{studentId}</if>
+            <if test="studentName != null  and studentName != ''"> and student_name like concat('%', #{studentName}, '%')</if>
+            <if test="courseId != null "> and course_id = #{courseId}</if>
+            <if test="batchNo != null  and batchNo != ''"> and batch_no = #{batchNo}</if>
+            <if test="fileCount != null "> and file_count = #{fileCount}</if>
+            <if test="submitTime != null "> and submit_time = #{submitTime}</if>
+            <if test="aiStatus != null "> and ai_status = #{aiStatus}</if>
+            <if test="aiReview != null  and aiReview != ''"> and ai_review = #{aiReview}</if>
+            <if test="totalScore != null "> and total_score = #{totalScore}</if>
+        </where>
+    </select>
+    
+    <select id="selectHwUploadBatchById" parameterType="Long" resultMap="HwUploadBatchResult">
+        <include refid="selectHwUploadBatchVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertHwUploadBatch" parameterType="HwUploadBatch" useGeneratedKeys="true" keyProperty="id">
+        insert into hw_upload_batch
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="studentId != null">student_id,</if>
+            <if test="studentName != null and studentName != ''">student_name,</if>
+            <if test="courseId != null">course_id,</if>
+            <if test="batchNo != null and batchNo != ''">batch_no,</if>
+            <if test="fileCount != null">file_count,</if>
+            <if test="submitTime != null">submit_time,</if>
+            <if test="aiStatus != null">ai_status,</if>
+            <if test="aiReview != null">ai_review,</if>
+            <if test="totalScore != null">total_score,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="tcReview != null">#{tcReview},</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="studentId != null">#{studentId},</if>
+            <if test="studentName != null and studentName != ''">#{studentName},</if>
+            <if test="courseId != null">#{courseId},</if>
+            <if test="batchNo != null and batchNo != ''">#{batchNo},</if>
+            <if test="fileCount != null">#{fileCount},</if>
+            <if test="submitTime != null">#{submitTime},</if>
+            <if test="aiStatus != null">#{aiStatus},</if>
+            <if test="aiReview != null">#{aiReview},</if>
+            <if test="totalScore != null">#{totalScore},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="tcReview != null">#{tcReview},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHwUploadBatch" parameterType="HwUploadBatch">
+        update hw_upload_batch
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="studentId != null">student_id = #{studentId},</if>
+            <if test="studentName != null and studentName != ''">student_name = #{studentName},</if>
+            <if test="courseId != null">course_id = #{courseId},</if>
+            <if test="batchNo != null and batchNo != ''">batch_no = #{batchNo},</if>
+            <if test="fileCount != null">file_count = #{fileCount},</if>
+            <if test="submitTime != null">submit_time = #{submitTime},</if>
+            <if test="aiStatus != null">ai_status = #{aiStatus},</if>
+            <if test="aiReview != null">ai_review = #{aiReview},</if>
+            <if test="totalScore != null">total_score = #{totalScore},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="tcReview != null">tc_review = #{tcReview},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHwUploadBatchById" parameterType="Long">
+        delete from hw_upload_batch where id = #{id}
+    </delete>
+
+    <delete id="deleteHwUploadBatchByIds" parameterType="String">
+        delete from hw_upload_batch where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
