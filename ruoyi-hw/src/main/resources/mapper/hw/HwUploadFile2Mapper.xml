@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hw.mapper.HwUploadFile2Mapper">
+    
+    <resultMap type="HwUploadFile2" id="HwUploadFile2Result">
+        <result property="id"    column="id"    />
+        <result property="batchId"    column="batch_id"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="fileExt"    column="file_ext"    />
+        <result property="fileSize"    column="file_size"    />
+        <result property="filePath"    column="file_path"    />
+        <result property="codeContent"    column="code_content"    />
+        <result property="judgeResult"    column="judge_result"    />
+        <result property="aiScore"    column="ai_score"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectHwUploadFile2Vo">
+        select id, batch_id, file_name, file_ext, file_size, file_path, code_content, judge_result, ai_score, create_time from hw_upload_file
+    </sql>
+
+    <select id="selectHwUploadFile2List" parameterType="HwUploadFile2" resultMap="HwUploadFile2Result">
+        <include refid="selectHwUploadFile2Vo"/>
+        <where>  
+            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectHwUploadFile2ById" parameterType="Long" resultMap="HwUploadFile2Result">
+        <include refid="selectHwUploadFile2Vo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertHwUploadFile2" parameterType="HwUploadFile2" useGeneratedKeys="true" keyProperty="id">
+        insert into hw_upload_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="batchId != null">batch_id,</if>
+            <if test="fileName != null and fileName != ''">file_name,</if>
+            <if test="fileExt != null and fileExt != ''">file_ext,</if>
+            <if test="fileSize != null">file_size,</if>
+            <if test="filePath != null and filePath != ''">file_path,</if>
+            <if test="codeContent != null">code_content,</if>
+            <if test="judgeResult != null">judge_result,</if>
+            <if test="aiScore != null">ai_score,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="batchId != null">#{batchId},</if>
+            <if test="fileName != null and fileName != ''">#{fileName},</if>
+            <if test="fileExt != null and fileExt != ''">#{fileExt},</if>
+            <if test="fileSize != null">#{fileSize},</if>
+            <if test="filePath != null and filePath != ''">#{filePath},</if>
+            <if test="codeContent != null">#{codeContent},</if>
+            <if test="judgeResult != null">#{judgeResult},</if>
+            <if test="aiScore != null">#{aiScore},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHwUploadFile2" parameterType="HwUploadFile2">
+        update hw_upload_file
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="batchId != null">batch_id = #{batchId},</if>
+            <if test="fileName != null and fileName != ''">file_name = #{fileName},</if>
+            <if test="fileExt != null and fileExt != ''">file_ext = #{fileExt},</if>
+            <if test="fileSize != null">file_size = #{fileSize},</if>
+            <if test="filePath != null and filePath != ''">file_path = #{filePath},</if>
+            <if test="codeContent != null">code_content = #{codeContent},</if>
+            <if test="judgeResult != null">judge_result = #{judgeResult},</if>
+            <if test="aiScore != null">ai_score = #{aiScore},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHwUploadFile2ById" parameterType="Long">
+        delete from hw_upload_file where id = #{id}
+    </delete>
+
+    <delete id="deleteHwUploadFile2ByIds" parameterType="String">
+        delete from hw_upload_file where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

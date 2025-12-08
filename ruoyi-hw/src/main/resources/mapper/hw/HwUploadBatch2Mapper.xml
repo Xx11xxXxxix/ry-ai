@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hw.mapper.HwUploadBatch2Mapper">
+    
+    <resultMap type="HwUploadBatch2" id="HwUploadBatch2Result">
+        <result property="id"    column="id"    />
+        <result property="studentId"    column="student_id"    />
+        <result property="studentName"    column="student_name"    />
+        <result property="courseId"    column="course_id"    />
+        <result property="batchNo"    column="batch_no"    />
+        <result property="fileCount"    column="file_count"    />
+        <result property="submitTime"    column="submit_time"    />
+        <result property="aiStatus"    column="ai_status"    />
+        <result property="aiReview"    column="ai_review"    />
+        <result property="totalScore"    column="total_score"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectHwUploadBatch2Vo">
+        select id, student_id, student_name, course_id, batch_no, file_count, submit_time, ai_status, ai_review, total_score, create_time, update_time from hw_upload_batch
+    </sql>
+
+    <select id="selectHwUploadBatch2List" parameterType="HwUploadBatch2" resultMap="HwUploadBatch2Result">
+        <include refid="selectHwUploadBatch2Vo"/>
+        <where>  
+            <if test="studentName != null  and studentName != ''"> and student_name like concat('%', #{studentName}, '%')</if>
+            <if test="batchNo != null  and batchNo != ''"> and batch_no = #{batchNo}</if>
+            <if test="fileCount != null "> and file_count = #{fileCount}</if>
+        </where>
+    </select>
+    
+    <select id="selectHwUploadBatch2ById" parameterType="Long" resultMap="HwUploadBatch2Result">
+        <include refid="selectHwUploadBatch2Vo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertHwUploadBatch2" parameterType="HwUploadBatch2" useGeneratedKeys="true" keyProperty="id">
+        insert into hw_upload_batch
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="studentId != null">student_id,</if>
+            <if test="studentName != null and studentName != ''">student_name,</if>
+            <if test="courseId != null">course_id,</if>
+            <if test="batchNo != null and batchNo != ''">batch_no,</if>
+            <if test="fileCount != null">file_count,</if>
+            <if test="submitTime != null">submit_time,</if>
+            <if test="aiStatus != null">ai_status,</if>
+            <if test="aiReview != null">ai_review,</if>
+            <if test="totalScore != null">total_score,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="studentId != null">#{studentId},</if>
+            <if test="studentName != null and studentName != ''">#{studentName},</if>
+            <if test="courseId != null">#{courseId},</if>
+            <if test="batchNo != null and batchNo != ''">#{batchNo},</if>
+            <if test="fileCount != null">#{fileCount},</if>
+            <if test="submitTime != null">#{submitTime},</if>
+            <if test="aiStatus != null">#{aiStatus},</if>
+            <if test="aiReview != null">#{aiReview},</if>
+            <if test="totalScore != null">#{totalScore},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHwUploadBatch2" parameterType="HwUploadBatch2">
+        update hw_upload_batch
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="studentId != null">student_id = #{studentId},</if>
+            <if test="studentName != null and studentName != ''">student_name = #{studentName},</if>
+            <if test="courseId != null">course_id = #{courseId},</if>
+            <if test="batchNo != null and batchNo != ''">batch_no = #{batchNo},</if>
+            <if test="fileCount != null">file_count = #{fileCount},</if>
+            <if test="submitTime != null">submit_time = #{submitTime},</if>
+            <if test="aiStatus != null">ai_status = #{aiStatus},</if>
+            <if test="aiReview != null">ai_review = #{aiReview},</if>
+            <if test="totalScore != null">total_score = #{totalScore},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHwUploadBatch2ById" parameterType="Long">
+        delete from hw_upload_batch where id = #{id}
+    </delete>
+
+    <delete id="deleteHwUploadBatch2ByIds" parameterType="String">
+        delete from hw_upload_batch where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
