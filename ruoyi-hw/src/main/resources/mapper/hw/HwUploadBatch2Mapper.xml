@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.hw.mapper.HwUploadBatch2Mapper">
-    
-    <resultMap type="HwUploadBatch2" id="HwUploadBatch2Result">
+
+    <resultMap type="com.ruoyi.hw.domain.HwUploadBatch2" id="HwUploadBatch2Result">
         <result property="id"    column="id"    />
         <result property="studentId"    column="student_id"    />
         <result property="studentName"    column="student_name"    />
@@ -17,27 +17,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="totalScore"    column="total_score"    />
         <result property="createTime"    column="create_time"    />
         <result property="updateTime"    column="update_time"    />
+        <!-- 保留 tc_review 的映射，因为原始 XML 中存在 -->
+        <result property="tcReview"    column="tc_review"    />
     </resultMap>
 
-    <sql id="selectHwUploadBatch2Vo">
-        select id, student_id, student_name, course_id, batch_no, file_count, submit_time, ai_status, ai_review, total_score, create_time, update_time from hw_upload_batch
+    <!-- SQL 片段与原始文件完全一致，仅表名确认指向共用表 -->
+    <sql id="selectHwUploadBatchVo">
+        select id, student_id, student_name, course_id, batch_no, file_count, submit_time, ai_status, ai_review, tc_review, total_score, create_time, update_time from hw_upload_batch
     </sql>
 
-    <select id="selectHwUploadBatch2List" parameterType="HwUploadBatch2" resultMap="HwUploadBatch2Result">
-        <include refid="selectHwUploadBatch2Vo"/>
-        <where>  
+    <!-- 查询条件与原始文件完全一致 -->
+    <select id="selectHwUploadBatch2List" parameterType="com.ruoyi.hw.domain.HwUploadBatch2" resultMap="HwUploadBatch2Result">
+        <include refid="selectHwUploadBatchVo"/>
+        <where>
+            <if test="studentId != null "> and student_id = #{studentId}</if>
             <if test="studentName != null  and studentName != ''"> and student_name like concat('%', #{studentName}, '%')</if>
+            <if test="courseId != null "> and course_id = #{courseId}</if>
             <if test="batchNo != null  and batchNo != ''"> and batch_no = #{batchNo}</if>
             <if test="fileCount != null "> and file_count = #{fileCount}</if>
+            <if test="submitTime != null "> and submit_time = #{submitTime}</if>
+            <if test="aiStatus != null "> and ai_status = #{aiStatus}</if>
+            <if test="aiReview != null  and aiReview != ''"> and ai_review = #{aiReview}</if>
+            <if test="totalScore != null "> and total_score = #{totalScore}</if>
         </where>
     </select>
-    
+
     <select id="selectHwUploadBatch2ById" parameterType="Long" resultMap="HwUploadBatch2Result">
-        <include refid="selectHwUploadBatch2Vo"/>
+        <include refid="selectHwUploadBatchVo"/>
         where id = #{id}
     </select>
 
-    <insert id="insertHwUploadBatch2" parameterType="HwUploadBatch2" useGeneratedKeys="true" keyProperty="id">
+    <!-- Insert 语句与原始文件完全一致 -->
+    <insert id="insertHwUploadBatch2" parameterType="com.ruoyi.hw.domain.HwUploadBatch2" useGeneratedKeys="true" keyProperty="id">
         insert into hw_upload_batch
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="studentId != null">student_id,</if>
@@ -51,7 +62,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="totalScore != null">total_score,</if>
             <if test="createTime != null">create_time,</if>
             <if test="updateTime != null">update_time,</if>
-         </trim>
+            <if test="tcReview != null">tc_review,</if>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="studentId != null">#{studentId},</if>
             <if test="studentName != null and studentName != ''">#{studentName},</if>
@@ -64,10 +76,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="totalScore != null">#{totalScore},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="updateTime != null">#{updateTime},</if>
-         </trim>
+            <if test="tcReview != null">#{tcReview},</if>
+        </trim>
     </insert>
 
-    <update id="updateHwUploadBatch2" parameterType="HwUploadBatch2">
+    <!-- Update 语句与原始文件完全一致 -->
+    <update id="updateHwUploadBatch2" parameterType="com.ruoyi.hw.domain.HwUploadBatch2">
         update hw_upload_batch
         <trim prefix="SET" suffixOverrides=",">
             <if test="studentId != null">student_id = #{studentId},</if>
@@ -81,6 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="totalScore != null">total_score = #{totalScore},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="tcReview != null">tc_review = #{tcReview},</if>
         </trim>
         where id = #{id}
     </update>
@@ -90,7 +105,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteHwUploadBatch2ByIds" parameterType="String">
-        delete from hw_upload_batch where id in 
+        delete from hw_upload_batch where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

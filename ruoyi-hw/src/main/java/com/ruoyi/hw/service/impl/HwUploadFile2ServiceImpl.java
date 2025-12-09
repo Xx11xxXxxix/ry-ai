@@ -66,6 +66,8 @@ public class HwUploadFile2ServiceImpl implements IHwUploadFile2Service
     @Override
     public int updateHwUploadFile2(HwUploadFile2 hwUploadFile2)
     {
+        // **核心修正：添加更新时间的逻辑，与 HwUploadBatch2ServiceImpl 保持一致**
+        hwUploadFile2.setUpdateTime(DateUtils.getNowDate());
         return hwUploadFile2Mapper.updateHwUploadFile2(hwUploadFile2);
     }
 

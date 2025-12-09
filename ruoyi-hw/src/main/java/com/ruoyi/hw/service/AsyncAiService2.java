@@ -1,4 +1,4 @@
-package com.ruoyi.system.service; // 你的包名
+package com.ruoyi.hw.service; // 你的包名
 
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.http.HttpRequest;
@@ -6,8 +6,9 @@ import cn.hutool.http.HttpResponse;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.ruoyi.system.domain.HwUploadBatch;
-import com.ruoyi.system.domain.HwUploadFile;
+import com.ruoyi.hw.service.IHwUploadBatch2Service;
+import com.ruoyi.hw.domain.HwUploadBatch2;
+import com.ruoyi.hw.domain.HwUploadFile2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,12 @@ import java.util.List;
  * AI 异步评测服务 (SiliconFlow 版本)
  */
 @Service
-public class AsyncAiService {
+public class AsyncAiService2 {
 
-    private static final Logger log = LoggerFactory.getLogger(AsyncAiService.class);
+    private static final Logger log = LoggerFactory.getLogger(AsyncAiService2.class);
 
     @Autowired
-    private IHwUploadBatchService hwUploadBatchService;
+    private IHwUploadBatch2Service hwUploadBatch2Service;
 
     // 硅基流动 API 地址
     private static final String API_URL = "https://api.siliconflow.cn/v1/chat/completions";
@@ -40,13 +41,13 @@ public class AsyncAiService {
      * 异步执行 AI 评测
      */
     @Async
-    public void processAiReview(Long batchId, List<HwUploadFile> files) {
+    public void processAiReview(Long batchId, List<HwUploadFile2> files) {
         log.info(">>> [AI评测] 开始处理批次: {}", batchId);
 
         try {
             // 1. 准备 Prompt (提示词)
             StringBuilder fileContentBuilder = new StringBuilder();
-            for (HwUploadFile file : files) {
+            for (HwUploadFile2 file : files) {
                 fileContentBuilder.append("【文件名：").append(file.getFileName()).append("】\n");
                 fileContentBuilder.append("```\n").append(file.getCodeContent()).append("\n```\n\n");
             }
@@ -122,26 +123,26 @@ public class AsyncAiService {
             }
 
             // 6. 更新数据库
-            HwUploadBatch batch = new HwUploadBatch();
+            HwUploadBatch2 batch = new HwUploadBatch2();
             batch.setId(batchId);
             batch.setAiReview(aiContent); // 存入完整回复
             batch.setTotalScore(totalScore);
             batch.setAiStatus(2L); // 2 = 已完成
 
-            hwUploadBatchService.updateHwUploadBatch(batch);
+            hwUploadBatch2Service.updateHwUploadBatch2(batch);
 
             log.info(">>> [AI评测] 批次 {} 处理完成，得分：{}", batchId, totalScore);
 
         } catch (Exception e) {
             log.error(">>> [AI评测] 发生异常", e);
             // 更新为失败状态
-            HwUploadBatch errorBatch = new HwUploadBatch();
+            HwUploadBatch2 errorBatch = new HwUploadBatch2();
             errorBatch.setId(batchId);
             errorBatch.setAiStatus(3L); // 3 = 失败
             errorBatch.setAiReview("评测失败：" + e.getMessage());
             // 防止数据库报错，分数设为0
             errorBatch.setTotalScore(BigDecimal.ZERO);
-            hwUploadBatchService.updateHwUploadBatch(errorBatch);
+            hwUploadBatch2Service.updateHwUploadBatch2(errorBatch);
         }
     }
 }

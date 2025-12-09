@@ -16,29 +16,31 @@ import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.enums.BusinessType;
-import com.ruoyi.hw.domain.HwUploadFile2;
-import com.ruoyi.hw.service.IHwUploadFile2Service;
+import com.ruoyi.hw.domain.HwUploadFile2; // 适配1: 导入 V2.0 实体
+import com.ruoyi.hw.service.IHwUploadFile2Service; // 适配2: 导入 V2.0 服务
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 作业文件明细2.0Controller
- * 
+ *
  * @author wenjie
  * @date 2025-12-08
  */
 @RestController
-@RequestMapping("/hw/file2")
+@RequestMapping("/hw/file2") // 适配3: 更新 API 基础路由
 public class HwUploadFile2Controller extends BaseController
 {
     @Autowired
-    private IHwUploadFile2Service hwUploadFile2Service;
+    private IHwUploadFile2Service hwUploadFile2Service; // 适配4: 注入 V2.0 服务实例
 
     /**
      * 查询作业文件明细2.0列表
      */
+    // 适配5: 更新权限标识
     @PreAuthorize("@ss.hasPermi('hw:file2:list')")
     @GetMapping("/list")
+    // 适配6: 所有方法参数和返回类型均已更新为 V2.0 实体
     public TableDataInfo list(HwUploadFile2 hwUploadFile2)
     {
         startPage();
@@ -96,7 +98,7 @@ public class HwUploadFile2Controller extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('hw:file2:remove')")
     @Log(title = "作业文件明细2.0", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
+    @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(hwUploadFile2Service.deleteHwUploadFile2ByIds(ids));
