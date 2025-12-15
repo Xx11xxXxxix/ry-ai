@@ -35,7 +35,7 @@
             icon="el-icon-s-data"
             size="mini"
             plain
-            @click="goTarget('#')"
+            @click="handleViewReport"
             >查看学情报告</el-button
           >
         </p>
@@ -136,10 +136,13 @@ export default {
   },
   methods: {
     handleStartHw() {
-     this.$router.push({ 
+      this.$router.push({ 
         path: '/homework/batch2', 
         // query: { action: 'add' } 
       });
+    },
+    handleViewReport() {
+      this.$router.push('/homework/file2');
     }
   }
 };
