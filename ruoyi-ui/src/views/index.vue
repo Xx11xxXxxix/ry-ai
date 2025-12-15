@@ -123,6 +123,30 @@
         </el-card>
       </el-col>
     </el-row>
+    
+    <el-row :gutter="20" style="margin-top: 20px; margin-bottom: 20px;">
+      <el-col :xs="24" :sm="24" :md="8" :lg="8">
+        <el-card class="update-log" style="height: 260px;"> 
+          <div slot="header" class="clearfix">
+            <span>
+              <i class="el-icon-pie-chart" style="color: #409EFF; margin-right: 5px;"></i> 
+              学情诊断报告 (AI生成)
+            </span>
+            <el-button style="float: right; padding: 3px 0" type="text" icon="el-icon-download">导出</el-button>
+          </div>
+          
+          <div class="body" style="padding: 0; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <!-- 图片区域 -->
+            <img 
+              src="https://echarts.apache.org/examples/data/thumb/mix-line-bar.webp" 
+              style="width: 100%; height: 160px; object-fit: contain;" 
+              alt="学情报告" 
+            />
+          </div>
+        </el-card>
+      </el-col>
+      
+    </el-row>
   </div>
 </template>
 
