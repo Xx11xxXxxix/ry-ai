@@ -125,10 +125,11 @@ public class HwUploadBatch2Controller extends BaseController
     @Transactional(rollbackFor = Exception.class)
     public AjaxResult addWithFiles(@RequestParam(value = "files", required = false) MultipartFile[] files, HwUploadBatch2 hwUploadBatch2) throws Exception
     {
+
         // ... (方法内部的上半部分逻辑保持不变) ...
         Long userId = SecurityUtils.getUserId();
         String nickName = SecurityUtils.getLoginUser().getUser().getNickName();
-
+        System.out.println("=== 提交作业 userId: " + userId + " ===");
         hwUploadBatch2.setStudentId(userId);
         hwUploadBatch2.setStudentName(nickName);
         hwUploadBatch2.setSubmitTime(new Date());
