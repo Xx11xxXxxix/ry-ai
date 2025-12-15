@@ -28,7 +28,7 @@
             size="mini"
             icon="el-icon-cloudy"
             plain
-            @click="goTarget('#')"
+            @click="handleStartHw"
             >开始测评</el-button
           >
           <el-button
@@ -135,11 +135,13 @@ export default {
     };
   },
   methods: {
-    goTarget(href) {
-      // 这里可以改为路由跳转，例如 this.$router.push('/evaluation/index')
-      console.log("跳转链接:", href);
-    },
-  },
+    handleStartHw() {
+     this.$router.push({ 
+        path: '/homework/batch2', 
+        // query: { action: 'add' } 
+      });
+    }
+  }
 };
 </script>
 
