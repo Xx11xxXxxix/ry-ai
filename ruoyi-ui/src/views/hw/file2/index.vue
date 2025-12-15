@@ -10,8 +10,8 @@
       <el-form-item label="文件大小" prop="fileSize">
         <el-input v-model="queryParams.fileSize" placeholder="请输入文件大小" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="AI得分" prop="aiScore">
-        <el-input v-model="queryParams.aiScore" placeholder="请输入AI得分" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="得分" prop="aiScore">
+        <el-input v-model="queryParams.aiScore" placeholder="请输入得分" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -55,7 +55,7 @@
       </el-table-column>
 
       <el-table-column label="判题结果" align="center" prop="judgeResult" />
-      <el-table-column label="AI得分" align="center" prop="aiScore" />
+      <el-table-column label="得分" align="center" prop="aiScore" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)" v-hasPermi="['hw:file2:edit']">修改</el-button>
@@ -84,8 +84,8 @@
         <el-form-item label="判题结果" prop="judgeResult">
           <el-input v-model="form.judgeResult" type="textarea" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="AI得分" prop="aiScore">
-          <el-input v-model="form.aiScore" placeholder="请输入AI得分" />
+        <el-form-item label="得分" prop="aiScore">
+          <el-input v-model="form.aiScore" placeholder="请输入得分" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
