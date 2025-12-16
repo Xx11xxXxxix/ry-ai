@@ -19,14 +19,24 @@
     </resultMap>
 
     <sql id="selectHwUploadFile2Vo">
-        select id, batch_id, file_name, file_ext, file_size, file_path, code_content, judge_result, ai_score, create_time from hw_upload_file
+        select f.id, f.batch_id, f.file_name, f.file_ext, f.file_size, f.file_path, f.code_content, f.judge_result, f.ai_score, f.create_time
+        from hw_upload_file f
     </sql>
 
     <!-- 核心修正2：查询方法的参数类型也使用完整路径 -->
     <select id="selectHwUploadFile2List" parameterType="com.ruoyi.hw.domain.HwUploadFile2" resultMap="HwUploadFile2Result">
         <include refid="selectHwUploadFile2Vo"/>
+        <!-- 核心：关联批次表 b -->
+        left join hw_upload_batch b on f.batch_id = b.id
         <where>
-            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+            <if test="batchId != null "> and f.batch_id = #{batchId}</if>
+            <if test="fileName != null  and fileName != ''"> and f.file_name like concat('%', #{fileName}, '%')</if>
+            <if test="fileExt != null  and fileExt != ''"> and f.file_ext = #{fileExt}</if>
+
+            <!-- 权限控制：如果 Service 层传入了 studentId，就通过批次表过滤 -->
+            <if test="params.studentId != null">
+                and b.student_id = #{params.studentId}
+            </if>
         </where>
     </select>
 

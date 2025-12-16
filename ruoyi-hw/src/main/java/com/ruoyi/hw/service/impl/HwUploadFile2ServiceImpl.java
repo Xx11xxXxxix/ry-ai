@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import com.ruoyi.hw.mapper.HwUploadFile2Mapper;
 import com.ruoyi.hw.domain.HwUploadFile2;
 import com.ruoyi.hw.service.IHwUploadFile2Service;
+import com.ruoyi.common.utils.SecurityUtils;
+import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.common.core.domain.entity.SysRole;
 
 /**
  * 作业文件明细2.0Service业务层处理
@@ -41,6 +44,28 @@ public class HwUploadFile2ServiceImpl implements IHwUploadFile2Service
     @Override
     public List<HwUploadFile2> selectHwUploadFile2List(HwUploadFile2 hwUploadFile2)
     {
+        // 1. 获取当前用户
+        SysUser user = SecurityUtils.getLoginUser().getUser();
+
+        // 2. 权限判断
+        if (!SysUser.isAdmin(user.getUserId())) {
+            boolean isTeacher = false;
+            if (user.getRoles() != null) {
+                for (SysRole role : user.getRoles()) {
+                    if ("teacher".equals(role.getRoleKey()) || "教师".equals(role.getRoleName())) {
+                        isTeacher = true;
+                        break;
+                    }
+                }
+            }
+
+            // 3. 核心逻辑：如果是学生（非教师），将 ID 放入 params 参数中
+            // BaseEntity 自带 params 属性，专门用于传递 XML 查询参数
+            if (!isTeacher) {
+                hwUploadFile2.getParams().put("studentId", user.getUserId());
+            }
+        }
+
         return hwUploadFile2Mapper.selectHwUploadFile2List(hwUploadFile2);
     }
 

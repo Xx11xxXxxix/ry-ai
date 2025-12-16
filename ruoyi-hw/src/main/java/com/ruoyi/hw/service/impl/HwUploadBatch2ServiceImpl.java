@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 import com.ruoyi.hw.mapper.HwUploadBatch2Mapper; // 适配1: 导入新的 Mapper 接口
 import com.ruoyi.hw.domain.HwUploadBatch2;     // 适配2: 导入新的 Domain 实体
 import com.ruoyi.hw.service.IHwUploadBatch2Service; // 适配3: 实现新的 Service 接口
-
+import com.ruoyi.common.utils.SecurityUtils;
+import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.common.core.domain.entity.SysRole;
+import com.ruoyi.common.utils.StringUtils;
 /**
  * 作业提交批次2.0 Service业务层处理
  *
@@ -42,6 +45,27 @@ public class HwUploadBatch2ServiceImpl implements IHwUploadBatch2Service
     @Override
     public List<HwUploadBatch2> selectHwUploadBatch2List(HwUploadBatch2 hwUploadBatch2)
     {
+        SysUser user = SecurityUtils.getLoginUser().getUser();
+
+        if (!SysUser.isAdmin(user.getUserId())) {
+
+            List<SysRole> roles = user.getRoles();
+            boolean isTeacher = false;
+
+            if (roles != null) {
+                for (SysRole role : roles) {
+                    if ("teacher".equals(role.getRoleKey()) || "教师".equals(role.getRoleName())) {
+                        isTeacher = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!isTeacher) {
+                hwUploadBatch2.setStudentId(user.getUserId());
+            }
+        }
+
         return hwUploadBatch2Mapper.selectHwUploadBatch2List(hwUploadBatch2);
     }
 
