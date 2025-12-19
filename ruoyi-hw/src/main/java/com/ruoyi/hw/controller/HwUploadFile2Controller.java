@@ -47,20 +47,7 @@ public class HwUploadFile2Controller extends BaseController
         List<HwUploadFile2> list = hwUploadFile2Service.selectHwUploadFile2List(hwUploadFile2);
         return getDataTable(list);
     }
-
-    /**
-     * 导出作业文件明细2.0列表
-     */
-    @PreAuthorize("@ss.hasPermi('hw:file2:export')")
-    @Log(title = "作业文件明细2.0", businessType = BusinessType.EXPORT)
-    @PostMapping("/export")
-    public void export(HttpServletResponse response, HwUploadFile2 hwUploadFile2)
-    {
-        List<HwUploadFile2> list = hwUploadFile2Service.selectHwUploadFile2List(hwUploadFile2);
-        ExcelUtil<HwUploadFile2> util = new ExcelUtil<HwUploadFile2>(HwUploadFile2.class);
-        util.exportExcel(response, list, "作业文件明细2.0数据");
-    }
-
+    
     /**
      * 获取作业文件明细2.0详细信息
      */

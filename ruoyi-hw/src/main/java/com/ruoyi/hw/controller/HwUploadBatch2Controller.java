@@ -60,19 +60,6 @@ public class HwUploadBatch2Controller extends BaseController
     }
 
     /**
-     * 导出作业提交批次2.0列表
-     */
-    @PreAuthorize("@ss.hasPermi('hw:batch2:export')")
-    @Log(title = "作业提交批次2.0", businessType = BusinessType.EXPORT)
-    @PostMapping("/export")
-    public void export(HttpServletResponse response, HwUploadBatch2 hwUploadBatch2)
-    {
-        List<HwUploadBatch2> list = hwUploadBatch2Service.selectHwUploadBatch2List(hwUploadBatch2);
-        ExcelUtil<HwUploadBatch2> util = new ExcelUtil<HwUploadBatch2>(HwUploadBatch2.class);
-        util.exportExcel(response, list, "作业提交批次2.0数据");
-    }
-
-    /**
      * 获取作业提交批次2.0详细信息
      */
     @PreAuthorize("@ss.hasPermi('hw:batch2:query')")
