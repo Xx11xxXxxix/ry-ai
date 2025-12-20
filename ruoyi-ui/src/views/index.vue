@@ -132,7 +132,6 @@
               <i class="el-icon-pie-chart" style="color: #409EFF; margin-right: 5px;"></i> 
               学情诊断报告 (AI生成)
             </span>
-            <el-button style="float: right; padding: 3px 0" type="text" icon="el-icon-download">导出</el-button>
           </div>
           
           <div class="body" style="padding: 0; height: 100%; display: flex; align-items: center; justify-content: center;">
