@@ -41,7 +41,7 @@
         </p>
       </el-col>
 
-      <!-- 右侧：技术架构图或关键指标（这里用文字列表模拟） -->
+      <!-- 右侧：系统状态 -->
       <el-col :sm="24" :lg="12" style="padding-left: 50px">
         <el-row>
           <el-col :span="12">
@@ -123,29 +123,6 @@
         </el-card>
       </el-col>
     </el-row>
-    
-    <el-row :gutter="20" style="margin-top: 20px; margin-bottom: 20px;">
-      <el-col :xs="24" :sm="24" :md="8" :lg="8">
-        <el-card class="update-log" style="height: 260px;"> 
-          <div slot="header" class="clearfix">
-            <span>
-              <i class="el-icon-pie-chart" style="color: #409EFF; margin-right: 5px;"></i> 
-              学情诊断报告 (AI生成)
-            </span>
-          </div>
-          
-          <div class="body" style="padding: 0; height: 100%; display: flex; align-items: center; justify-content: center;">
-            <!-- 图片区域 -->
-            <img 
-              src="https://echarts.apache.org/examples/data/thumb/mix-line-bar.webp" 
-              style="width: 100%; height: 160px; object-fit: contain;" 
-              alt="学情报告" 
-            />
-          </div>
-        </el-card>
-      </el-col>
-      
-    </el-row>
   </div>
 </template>
 
@@ -159,13 +136,12 @@ export default {
   },
   methods: {
     handleStartHw() {
-      this.$router.push({ 
-        path: '/homework/batch2', 
-        // query: { action: 'add' } 
-      });
+      // 跳转到作业列表
+      this.$router.push('/hw/batch2');
     },
     handleViewReport() {
-      this.$router.push('/homework/file2');
+      // 跳转到我们即将新建的学情分析页面
+      this.$router.push('/hw/analysis'); 
     }
   }
 };
@@ -185,15 +161,7 @@ export default {
     border: 0;
     border-top: 1px solid #eee;
   }
-  .col-item {
-    margin-bottom: 20px;
-  }
-
-  ul {
-    padding: 0;
-    margin: 0;
-  }
-
+  
   font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   color: #676a6c;
@@ -201,10 +169,8 @@ export default {
 
   ul {
     list-style-type: none;
-  }
-
-  h4 {
-    margin-top: 0px;
+    padding: 0;
+    margin: 0;
   }
 
   h2 {
@@ -215,11 +181,8 @@ export default {
 
   p {
     margin-top: 10px;
-    line-height: 1.8; // 增加行高，提升阅读体验
-
-    b {
-      font-weight: 700;
-    }
+    line-height: 1.8;
+    b { font-weight: 700; }
   }
 
   .list-group-striped > li {
@@ -231,15 +194,13 @@ export default {
   }
 
   .update-log {
-    height: 260px; // 固定卡片高度，使排版更整齐
+    height: 260px;
     .body {
       padding: 10px;
       font-size: 14px;
       color: #666;
     }
-    i {
-        margin-right: 5px;
-    }
+    i { margin-right: 5px; }
   }
 }
 </style>
