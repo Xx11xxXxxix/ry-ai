@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ruoyi.common.config.RuoYiConfig;
 import com.ruoyi.common.utils.SecurityUtils;
+import com.ruoyi.common.utils.file.FileCharsetUtil;
 import com.ruoyi.common.utils.file.FileUploadUtils;
 import com.ruoyi.hw.domain.HwUploadFile2;
 import com.ruoyi.hw.service.IHwUploadFile2Service;
@@ -133,7 +134,7 @@ public class HwUploadBatch2Controller extends BaseController
                 String filePath = FileUploadUtils.upload(RuoYiConfig.getUploadPath(), file, null);
                 String originalFilename = file.getOriginalFilename();
                 String extension = FilenameUtils.getExtension(originalFilename);
-                String codeContent = new String(file.getBytes(), StandardCharsets.UTF_8);
+                String codeContent = FileCharsetUtil.readContent(file);
 
                 HwUploadFile2 uploadFile = new HwUploadFile2();
                 uploadFile.setBatchId(batchId);

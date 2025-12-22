@@ -67,6 +67,12 @@
             <artifactId>ruoyi-hw</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.albfernandez</groupId>
+            <artifactId>juniversalchardet</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
