@@ -22,7 +22,7 @@ import com.wen.system.service.ISysConfigService;
 
 /**
  * 验证码操作处理
- * 
+ *
  * @author ruoyi
  */
 @RestController
@@ -36,9 +36,10 @@ public class CaptchaController
 
     @Autowired
     private RedisCache redisCache;
-    
+
     @Autowired
     private ISysConfigService configService;
+
     /**
      * 生成验证码
      */
@@ -46,21 +47,24 @@ public class CaptchaController
     public AjaxResult getCode(HttpServletResponse response) throws IOException
     {
         AjaxResult ajax = AjaxResult.success();
+
+        boolean registerEnabled = Boolean.parseBoolean(configService.selectConfigByKey("sys.account.registerUser"));
+        ajax.put("registerEnabled", registerEnabled);
+
         boolean captchaEnabled = configService.selectCaptchaEnabled();
         ajax.put("captchaEnabled", captchaEnabled);
+
         if (!captchaEnabled)
         {
             return ajax;
         }
 
-        // 保存验证码信息
         String uuid = IdUtils.simpleUUID();
         String verifyKey = CacheConstants.CAPTCHA_CODE_KEY + uuid;
 
         String capStr = null, code = null;
         BufferedImage image = null;
 
-        // 生成验证码
         String captchaType = RuoYiConfig.getCaptchaType();
         if ("math".equals(captchaType))
         {
@@ -76,7 +80,6 @@ public class CaptchaController
         }
 
         redisCache.setCacheObject(verifyKey, code, Constants.CAPTCHA_EXPIRATION, TimeUnit.MINUTES);
-        // 转换流信息写出
         FastByteArrayOutputStream os = new FastByteArrayOutputStream();
         try
         {

@@ -94,7 +94,7 @@ export default {
       // 验证码开关
       captchaEnabled: true,
       // 注册开关
-      register: false,
+      register: true,
       redirect: undefined
     }
   },
@@ -118,6 +118,7 @@ export default {
           this.codeUrl = "data:image/gif;base64," + res.img
           this.loginForm.uuid = res.uuid
         }
+        this.register = res.registerEnabled === undefined ? false : res.registerEnabled
       })
     },
     getCookie() {

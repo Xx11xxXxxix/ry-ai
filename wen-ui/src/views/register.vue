@@ -11,7 +11,7 @@
         <el-input
           v-model="registerForm.password"
           type="password"
-          auto-complete="off"
+          autocomplete="new-password"
           placeholder="密码"
           @keyup.enter.native="handleRegister"
         >
@@ -22,7 +22,7 @@
         <el-input
           v-model="registerForm.confirmPassword"
           type="password"
-          auto-complete="off"
+          auto-complete="new-password"
           placeholder="确认密码"
           @keyup.enter.native="handleRegister"
         >
