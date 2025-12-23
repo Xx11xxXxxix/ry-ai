@@ -37,7 +37,7 @@ public interface HwUploadFile2Mapper
 
     /**
      * 修改作业文件明细2.0
-     * 
+     * ]uityrfg
      * @param hwUploadFile2 作业文件明细2.0
      * @return 结果
      */
@@ -46,7 +46,7 @@ public interface HwUploadFile2Mapper
     /**
      * 删除作业文件明细2.0
      * 
-     * @param id 作业文件明细2.0主键
+     *
      * @return 结果
      */
     public int deleteHwUploadFile2ById(Long id);
@@ -59,3 +59,67 @@ public interface HwUploadFile2Mapper
      */
     public int deleteHwUploadFile2ByIds(Long[] ids);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
