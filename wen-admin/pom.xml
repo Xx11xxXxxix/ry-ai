@@ -61,6 +61,13 @@
             <artifactId>wen-generator</artifactId>
         </dependency>
 
+        <!-- 代码生成-->
+        <dependency>
+            <groupId>com.wen</groupId>
+            <artifactId>wen-vote</artifactId>
+            <version>3.9.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -1,23 +1,55 @@
 ######################################################################
-# Build Tools
+# 1. Operating System (系统垃圾文件 - 新增)
+######################################################################
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
 
+######################################################################
+# 2. Build Tools & Output (构建工具与输出)
+######################################################################
+# Maven (Java)
+target/
+**/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Gradle (Android)
 .gradle
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 
-target/
-!.mvn/wrapper/maven-wrapper.jar
+# Frontend (Node/Vue)
 node_modules/
-application-druid.yml*
-application.yml*
+**/node_modules/
+dist/
+dist-ssr/
+*.local
+
+######################################################################
+# 3. Logs & Debugging (日志与调试)
+######################################################################
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
-######################################################################
-# IDE
+selenium-debug.log
 
-### STS ###
+######################################################################
+# 4. IDE / Editor (编辑器配置)
+######################################################################
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# VS Code (新增)
+.vscode/
+
+# STS / Eclipse
 .apt_generated
 .classpath
 .factorypath
@@ -25,29 +57,33 @@ yarn-error.log*
 .settings
 .springBeans
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### JRebel ###
-rebel.xml
-
-### NetBeans ###
+# NetBeans
 nbproject/private/
-build/*
 nbbuild/
-dist/
 nbdist/
 .nb-gradle/
 
+# JRebel
+rebel.xml
+
 ######################################################################
-# Others
-*.log
+# 5. Security & Local Config (安全与本地配置 - 你的自定义配置)
+######################################################################
+# 警告：你屏蔽了这些配置文件，这意味着别人拉取代码后需要自己新建这些文件才能运行
+application-druid.yml*
+application.yml*
+
+# 前端环境变量
+.env.local
+.env.*.local
+
+######################################################################
+# 6. Others (其他)
+######################################################################
 *.xml.versionsBackup
 *.swp
 
+# Android 相关的保留规则
 !*/build/*.java
 !*/build/*.html
 !*/build/*.xml

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主要品牌色 -->
+    <color name="primary_gradient_start">#FF6B9D</color>
+    <color name="primary_gradient_end">#FF9EC7</color>
+    <color name="secondary_gradient_start">#FFD166</color>
+    <color name="secondary_gradient_end">#FFEEA2</color>
+    
+    <!-- 背景色 -->
+    <color name="background_light">#FFF5F9</color>
+    <color name="background_card">#FFFFFF</color>
+    <color name="background_accent">#FFE6F0</color>
+    
+    <!-- 文字颜色 -->
+    <color name="text_primary">#333333</color>
+    <color name="text_secondary">#666666</color>
+    <color name="text_accent">#FF6B9D</color>
+    <color name="text_primary_pink">#FF6B9D</color>
+    <color name="text_hint_pink">#FF9EC7</color>
+    
+    <!-- 功能色 -->
+    <color name="success">#6BCB77</color>
+    <color name="warning">#FFD93D</color>
+    <color name="error">#FF6B6B</color>
+    <color name="info">#4D96FF</color>
+    <color name="button_pink">#FF6B9D</color>
+    
+    <!-- 渐变色 -->
+    <color name="gradient_pink_start">#FF9EC7</color>
+    <color name="gradient_pink_end">#FFC7DE</color>
+    <color name="gradient_yellow_start">#FFD166</color>
+    <color name="gradient_yellow_end">#FFEEA2</color>
+</resources>

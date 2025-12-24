@@ -228,6 +228,7 @@
         <module>wen-quartz</module>
         <module>wen-generator</module>
         <module>wen-common</module>
+        <module>wen-vote</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="radioButtonPaddingStart">16dp</dimen>
+    <dimen name="radioButtonPaddingTop">12dp</dimen>
+    <dimen name="radioButtonPaddingEnd">16dp</dimen>
+    <dimen name="radioButtonPaddingBottom">12dp</dimen>
+</resources>

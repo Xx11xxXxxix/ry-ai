@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 创建投票 -->
+    <item
+        android:id="@+id/nav_create_vote"
+        android:title="创建投票"
+        android:icon="@android:drawable/ic_menu_add" />
+
+    <!-- 我的投票 -->
+    <item
+        android:id="@+id/nav_my_vote"
+        android:title="我的投票"
+        android:icon="@android:drawable/ic_menu_myplaces" />
+
+    <!-- 投票模板 -->
+    <item
+        android:id="@+id/nav_template"
+        android:title="投票模板"
+        android:icon="@android:drawable/ic_menu_slideshow" />
+
+    <!-- 结果统计 -->
+    <item
+        android:id="@+id/nav_statistics"
+        android:title="结果统计"
+        android:icon="@android:drawable/ic_menu_manage" />
+</menu>
